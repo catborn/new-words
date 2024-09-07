@@ -2,6 +2,23 @@
   text-align: center;
 }
 
+.Cards {
+  display: inline-block;
+  width: 200px;
+  height: 300px;
+  background-color: aquamarine;
+  margin: 3%;
+}
+
+.Button {
+  display: inline-block;
+  border: 0;
+  background-color: lightcoral;
+  margin: 1%;
+  width: 15rem;
+  height: 4rem;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
