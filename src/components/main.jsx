@@ -8,10 +8,6 @@ function Main() {
       <div className="Cards">Card</div>
       <div className="Cards">Card</div>
       <div className="Cards">Card</div>
-      <div className="Cards">Card</div>
-      <div className="Cards">Card</div>
-      <div className="Cards">Card</div>
-      <div className="Cards">Card</div>
       <div>
         <button className="Button">button</button>
         <button className="Button">button</button>
