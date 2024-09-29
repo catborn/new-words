@@ -1,0 +1,22 @@
+.table_container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th,
+.table td {
+  padding: 10px;
+  text-align: center;
+}
+
+button:hover {
+  background-color: lightcoral;
+}
+
+.table th:hover {
+  background-color: yellowgreen;
+}

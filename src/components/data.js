@@ -36,7 +36,7 @@ const data = [
     english: "hello",
     transcription: "[həˈləʊ]",
     russian: "привет",
-    tags: "",
+    tags: "общение",
     tags_json: '[""]',
   },
   {
@@ -44,7 +44,7 @@ const data = [
     english: "airplane",
     transcription: "[ˈerpleɪn]",
     russian: "самолет",
-    tags: "",
+    tags: "авиация",
     tags_json: '[""]',
   },
   {
@@ -52,7 +52,7 @@ const data = [
     english: "program",
     transcription: "[ˈprəʊɡræm]",
     russian: "программа",
-    tags: "",
+    tags: "программы",
     tags_json: '[""]',
   },
   {
@@ -60,7 +60,7 @@ const data = [
     english: "justice",
     transcription: "[ˈdʒʌstɪs]",
     russian: "справедливость",
-    tags: "",
+    tags: "отношения",
     tags_json: '[""]',
   },
   {
@@ -68,7 +68,7 @@ const data = [
     english: "variable",
     transcription: "[ˈverɪəbl]",
     russian: "переменная",
-    tags: "",
+    tags: "программа",
     tags_json: '[""]',
   },
   {

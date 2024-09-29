@@ -1,10 +1,11 @@
 import TableRow from "./TableRow";
 import data from "./data";
+import styles from "./Table.module.css";
 
 function Table() {
   return (
-    <table>
-      <thead>
+    <table className={styles.table_container}>
+      <thead className={styles.table}>
         <tr>
           <th>#</th>
           <th>word</th>
