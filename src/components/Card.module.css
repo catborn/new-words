@@ -1,0 +1,12 @@
+.Cards {
+  display: inline-block;
+  width: 200px;
+  height: 250px;
+  background-color: aquamarine;
+  margin: 3%;
+}
+
+.selected {
+  padding: 5px;
+  text-align: center;
+}
