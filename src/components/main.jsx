@@ -5,13 +5,23 @@ import { data } from "./data.js";
 
 function Main() {
   const [isSelected, setIsSelected] = useState(false);
-  const [currentWordIndex] = useState(0);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   const handleClick = () => {
     setIsSelected(!isSelected);
   };
 
   const currentWord = data[currentWordIndex];
+
+  const nextWord = () => {
+    setCurrentWordIndex((prevIndex) => (prevIndex + 1) % data.length);
+    setIsSelected(false);
+  };
+
+  const previosWord = () => {
+    setCurrentWordIndex((previosIndex) => (previosIndex - 1) % data.length);
+    setIsSelected(false);
+  };
 
   return (
     <header>
@@ -29,9 +39,13 @@ function Main() {
       <div className="Cards">Card</div>
       <div className="Cards">Card</div> */}
       <div>
-        <button className="Button">button</button>
-        <button className="Button">button</button>
-        <button className="Button">button</button>
+        <button className="Button" onClick={previosWord}>
+          Previos Word
+        </button>
+        <button className="Button" onClick={nextWord}>
+          Next Word
+        </button>
+        {/* <button className="Button">button</button> */}
       </div>
     </header>
   );
