@@ -1,12 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import styles from "./Card.module.css";
+import { data } from "./data.js";
 
 function Main() {
   const [isSelected, setIsSelected] = useState(false);
+  const [currentWordIndex] = useState(0);
+
   const handleClick = () => {
     setIsSelected(!isSelected);
   };
+
+  const currentWord = data[currentWordIndex];
 
   return (
     <header>
@@ -15,9 +20,9 @@ function Main() {
       </h3>
       <div className={styles.Cards} onClick={handleClick}>
         {isSelected ? (
-          <div className={styles.selected}>Перевод слова</div>
+          <div className={styles.selected}>{currentWord.russian}</div>
         ) : (
-          "Иностранное слово"
+          currentWord.english
         )}
       </div>
       {/* <div className="Cards">Card</div>
