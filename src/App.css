@@ -11,6 +11,10 @@
   height: 4rem;
 }
 
+li {
+  list-style-type: none;
+}
+
 /* .table {
   border: 1px solid green;
 } */

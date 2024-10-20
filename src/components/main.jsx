@@ -26,7 +26,7 @@ function Main() {
   return (
     <header>
       <h3>
-        <h1>Main</h1>
+        <h1>Game</h1>
       </h3>
       <div className={styles.Cards} onClick={handleClick}>
         {isSelected ? (
