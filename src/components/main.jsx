@@ -19,7 +19,9 @@ function Main() {
   };
 
   const previosWord = () => {
-    setCurrentWordIndex((previosIndex) => (previosIndex - 1) % data.length);
+    setCurrentWordIndex((previosIndex) =>
+      previosIndex === 0 ? data.length - 1 : previosIndex - 1
+    );
     setIsSelected(false);
   };
 
