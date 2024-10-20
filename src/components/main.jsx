@@ -24,10 +24,10 @@ function Main() {
   };
 
   return (
-    <header>
-      <h3>
+    <div>
+      {/* <h3>
         <h1>Game</h1>
-      </h3>
+      </h3> */}
       <div className={styles.Cards} onClick={handleClick}>
         {isSelected ? (
           <div className={styles.selected}>{currentWord.russian}</div>
@@ -47,7 +47,7 @@ function Main() {
         </button>
         {/* <button className="Button">button</button> */}
       </div>
-    </header>
+    </div>
   );
 }
 
