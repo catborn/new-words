@@ -8,6 +8,8 @@ function Main() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   // Добавляем состояние для подсчета изученных слов
   const [learnedWords, setLearnedWords] = useState(0);
+  // Добавляем состояние для показа/скрытия перевода
+  const [showTranslation, setShowTranslation] = useState(false);
   // Добавляем ref для кнопки
   const cardRef = useRef(null);
   // Добавляем useEffect для автофокуса
@@ -30,6 +32,7 @@ function Main() {
   const nextWord = () => {
     setCurrentWordIndex((prevIndex) => (prevIndex + 1) % data.length);
     setIsSelected(false);
+    setShowTranslation(false); // Сбрасываем состояние перевода при переходе к следующему слову
   };
 
   const previosWord = () => {
@@ -37,6 +40,15 @@ function Main() {
       previosIndex === 0 ? data.length - 1 : previosIndex - 1
     );
     setIsSelected(false);
+    setShowTranslation(false); // Сбрасываем состояние перевода при переходе к предыдущему слову
+  };
+
+  // Обработчик для показа перевода
+  const handleShowTranslation = () => {
+    setShowTranslation(true);
+    if (!isSelected) {
+      setLearnedWords((prev) => prev + 1);
+    }
   };
 
   return (
@@ -56,10 +68,19 @@ function Main() {
           }
         }}
       >
-        {isSelected ? (
+        {/* {isSelected ? (
           <div className={styles.selected}>{currentWord.russian}</div>
         ) : (
           currentWord.english
+        )} */}
+        <div>{currentWord.english}</div>
+        {showTranslation && (
+          <div className={styles.selected}>{currentWord.russian}</div>
+        )}
+        {!showTranslation && (
+          <button className="Button" onClick={handleShowTranslation}>
+            Показать перевод
+          </button>
         )}
       </div>
 
