@@ -19,6 +19,11 @@ li {
   border: 1px solid green;
 } */
 
+button {
+  border: 0;
+  background: transparent;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

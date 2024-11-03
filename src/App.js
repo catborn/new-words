@@ -11,9 +11,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <Main /> */}
-      {/* <Table /> */}
-      {/* <Footer /> */}
       <Router>
         <div>
           <nav>
