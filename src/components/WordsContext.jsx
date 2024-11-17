@@ -32,7 +32,7 @@ export const WordsProvider = ({ children }) => {
   const addWord = async (newWord) => {
     try {
       // API-запрос на добавление
-      const response = await fetch("", {
+      const response = await fetch("http://sandbox.itgirlschool.ru/api/words", {
         method: "POST",
         body: JSON.stringify(newWord),
         headers: {
