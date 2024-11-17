@@ -16,8 +16,8 @@ export const WordsProvider = ({ children }) => {
   const fetchWords = async () => {
     try {
       setLoading(true);
-      // Здесь должен быть реальный API-запрос
-      const response = await fetch("your-api-endpoint");
+      // http://sandbox.itgirlschool.ru/api/words
+      const response = await fetch("http://sandbox.itgirlschool.ru/api/words");
       const data = await response.json();
       setWords(data);
       setError(null);
@@ -32,7 +32,7 @@ export const WordsProvider = ({ children }) => {
   const addWord = async (newWord) => {
     try {
       // API-запрос на добавление
-      const response = await fetch("your-api-endpoint", {
+      const response = await fetch("", {
         method: "POST",
         body: JSON.stringify(newWord),
         headers: {
@@ -50,13 +50,16 @@ export const WordsProvider = ({ children }) => {
   const updateWord = async (id, updatedWord) => {
     try {
       // API-запрос на обновление
-      const response = await fetch(`your-api-endpoint/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(updatedWord),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `http://sandbox.itgirlschool.ru/api/words/${id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(updatedWord),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       setWords((prevWords) =>
         prevWords.map((word) => (word.id === id ? data : word))
@@ -70,7 +73,7 @@ export const WordsProvider = ({ children }) => {
   const deleteWord = async (id) => {
     try {
       // API-запрос на удаление
-      await fetch(`your-api-endpoint/${id}`, {
+      await fetch(`http://sandbox.itgirlschool.ru/api/words/${id}`, {
         method: "DELETE",
       });
       setWords((prevWords) => prevWords.filter((word) => word.id !== id));
