@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "./button";
+import { WordsContext } from "./WordsContext";
 
 const TableRow = ({ id, english, transcription, russian, tags }) => {
+  const { updateWord, deleteWord } = useContext(WordsContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({
     english,
@@ -22,8 +24,15 @@ const TableRow = ({ id, english, transcription, russian, tags }) => {
     setErrors({});
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
+  const handleSave = async () => {
+    if (!hasEmptyFields) {
+      await updateWord(id, editedData);
+      setIsEditing(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    await deleteWord(id);
   };
 
   const handleChange = (e) => {
@@ -103,7 +112,7 @@ const TableRow = ({ id, english, transcription, russian, tags }) => {
           <td>{tags}</td>
           <td>
             <Button onClick={handleEdit} text="Edit" />
-            <Button text="Delete" />
+            <Button onClick={handleDelete} text="Delete" />
           </td>
         </>
       )}
