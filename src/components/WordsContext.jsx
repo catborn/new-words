@@ -53,7 +53,7 @@ export const WordsProvider = ({ children }) => {
       const response = await fetch(
         `http://sandbox.itgirlschool.ru/api/words/${id}`,
         {
-          method: "PUT",
+          method: "POST",
           body: JSON.stringify(updatedWord),
           headers: {
             "Content-Type": "application/json",
