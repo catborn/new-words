@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";//импортируем хуки: управление состоянием компонента, объект-реф сохранящий состояния м/у рендерами, для фокуса
 import styles from "./Card.module.css";
 import { data } from "./data.js";
 
 function Main() {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [learnedWords, setLearnedWords] = useState(0);
-  const [showTranslation, setShowTranslation] = useState(false);
-  const cardRef = useRef(null);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);//индекс текущего слова
+  const [learnedWords, setLearnedWords] = useState(0);//количнство изученных слов
+  const [showTranslation, setShowTranslation] = useState(false);//флаг вкл/выкл перевода слова
+  const cardRef = useRef(null);//фокусировка на элементе
 
   useEffect(() => {
     if (cardRef.current) {
