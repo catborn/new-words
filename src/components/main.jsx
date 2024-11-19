@@ -9,32 +9,32 @@ function Main() {
   const cardRef = useRef(null);//фокусировка на элементе
 
   useEffect(() => {
-    if (cardRef.current) {
-      cardRef.current.focus();
+    if (cardRef.current) {//если элемент связан с cardRef
+      cardRef.current.focus();//то устанавливаем фокус на карточку
     }
-  }, [currentWordIndex]);
+  }, [currentWordIndex]);//вызывается каждый раз, когда меняется currentWordIndex
 
-  const currentWord = data[currentWordIndex];
-
+  const currentWord = data[currentWordIndex];//хранит текущее слова из массива data
+//обработчики событий
   const handleShowTranslation = () => {
-    if (!showTranslation) {
-      setLearnedWords((prev) => prev + 1);
+    if (!showTranslation) {//если перевод не показан
+      setLearnedWords((prev) => prev + 1);//увеличить счетчик изученных слов
     }
-    setShowTranslation(true);
+    setShowTranslation(true);//показать перевод
   };
-
+//кнопка Next Word
   const nextWord = () => {
-    setCurrentWordIndex((prevIndex) => (prevIndex + 1) % data.length);
-    setShowTranslation(false);
+    setCurrentWordIndex((prevIndex) => (prevIndex + 1) % data.length);//если конец,то начать цикл сначала
+    setShowTranslation(false);//скрыть текущий перевод
   };
-
+//кнопка Previos Word
   const previosWord = () => {
     setCurrentWordIndex((previosIndex) =>
-      previosIndex === 0 ? data.length - 1 : previosIndex - 1
+      previosIndex === 0 ? data.length - 1 : previosIndex - 1//если индекс=0, перейти к посленему слову в списке
     );
     setShowTranslation(false);
   };
-
+//рендеринг
   return (
     <div>
       <div className={styles.counter}>Изучено слов: {learnedWords}</div>

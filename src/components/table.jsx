@@ -14,6 +14,7 @@ function Table() {
           <th>tag</th>
         </tr>
       </thead>
+      {/* (map() и ...spread) для каждой записи новый TableRow через props, key для отслеживания изменений*/}
       <tbody>
         {data.map((data) => (
           <TableRow key={data.id} {...data} />
