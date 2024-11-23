@@ -17,7 +17,7 @@ export const WordsProvider = ({ children }) => {
     try {
       setLoading(true);
       // http://sandbox.itgirlschool.ru/api/words
-      const response = await fetch("http://sandbox.itgirlschool.ru/api/words");
+      const response = await fetch("http://itgirlschool.justmakeit.ru/api/words");
       const data = await response.json();
       setWords(data);
       setError(null);
@@ -32,7 +32,7 @@ export const WordsProvider = ({ children }) => {
   const addWord = async (newWord) => {
     try {
       // API-запрос на добавление
-      const response = await fetch("http://sandbox.itgirlschool.ru/api/words", {
+      const response = await fetch("http://itgirlschool.justmakeit.ru/api/words", {
         method: "POST",
         body: JSON.stringify(newWord),
         headers: {
@@ -51,7 +51,7 @@ export const WordsProvider = ({ children }) => {
     try {
       // API-запрос на обновление
       const response = await fetch(
-        `http://sandbox.itgirlschool.ru/api/words/${id}`,
+        `http://itgirlschool.justmakeit.ru/api/words/${id}`,
         {
           method: "POST",
           body: JSON.stringify(updatedWord),
@@ -73,7 +73,7 @@ export const WordsProvider = ({ children }) => {
   const deleteWord = async (id) => {
     try {
       // API-запрос на удаление
-      await fetch(`http://sandbox.itgirlschool.ru/api/words/${id}`, {
+      await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}`, {
         method: "DELETE",
       });
       setWords((prevWords) => prevWords.filter((word) => word.id !== id));

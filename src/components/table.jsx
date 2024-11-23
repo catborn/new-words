@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { WordsContext } from "./WordsContext";
 
 function Table() {
-  const { data, loading, error } = useContext(WordsContext);
+  const { words, loading, error } = useContext(WordsContext);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -22,8 +22,8 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {data.map((data) => (
-          <TableRow key={data.id} {...data} />
+        {words.map((words) => (
+          <TableRow key={words.id} {...words} />
         ))}
       </tbody>
     </table>
