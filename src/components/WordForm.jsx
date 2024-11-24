@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { observer } from "mobx-react";
 import { useContext } from "react";
 import { MobXProviderContext } from "mobx-react";
+import styles from "./Form.module.css";
 
 const WordForm = observer(() => {
   const { wordsStore } = useContext(MobXProviderContext);
@@ -31,7 +32,7 @@ const WordForm = observer(() => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.input} onSubmit={handleSubmit}>
       <input
         name="english"
         value={word.english || ""}
