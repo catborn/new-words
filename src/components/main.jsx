@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import styles from "./Card.module.css";
-import { data } from "./data.js";
+import { WordsContext } from "./WordsContext";
 
 function Main() {
+  const { words, loading, error } = useContext(WordsContext); // Получаем данные из контекста
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [learnedWords, setLearnedWords] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
@@ -14,7 +15,22 @@ function Main() {
     }
   }, [currentWordIndex]);
 
-  const currentWord = data[currentWordIndex];
+  // Показываем загрузку
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Показываем ошибку
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  // Проверяем наличие слов
+  if (!words || words.length === 0) {
+    return <div>No words available</div>;
+  }
+
+  const currentWord = words[currentWordIndex];
 
   const handleShowTranslation = () => {
     if (!showTranslation) {
@@ -24,13 +40,13 @@ function Main() {
   };
 
   const nextWord = () => {
-    setCurrentWordIndex((prevIndex) => (prevIndex + 1) % data.length);
+    setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
     setShowTranslation(false);
   };
 
   const previosWord = () => {
     setCurrentWordIndex((previosIndex) =>
-      previosIndex === 0 ? data.length - 1 : previosIndex - 1
+      previosIndex === 0 ? words.length - 1 : previosIndex - 1
     );
     setShowTranslation(false);
   };
@@ -61,10 +77,18 @@ function Main() {
       </div>
 
       <div>
-        <button className="Button" onClick={previosWord}>
+        <button
+          className="Button"
+          onClick={previosWord}
+          disabled={words.length <= 1}
+        >
           Previous Word
         </button>
-        <button className="Button" onClick={nextWord}>
+        <button
+          className="Button"
+          onClick={nextWord}
+          disabled={words.length <= 1}
+        >
           Next Word
         </button>
       </div>
