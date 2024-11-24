@@ -12,13 +12,20 @@
   border-radius: 5%;
 }
 
-li {
+li,
+a {
+  display: inline-block;
+  margin: 10px;
+  /* margin-left: 20px; */
   list-style-type: none;
+  text-decoration: none;
+  color: black;
+  font-size: 1.2em;
 }
 
-/* .table {
-  border: 1px solid green;
-} */
+li:hover {
+  background-color: yellowgreen;
+}
 
 button {
   border: 0;
