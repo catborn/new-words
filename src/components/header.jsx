@@ -1,9 +1,7 @@
 function Header() {
   return (
     <header>
-      <div>
-        <h1>📚Learn new words</h1>
-      </div>
+      <h1>📚Learn new words</h1>
     </header>
   );
 }
