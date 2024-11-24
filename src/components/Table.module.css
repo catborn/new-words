@@ -17,6 +17,15 @@ button:hover {
   background-color: lightcoral;
 }
 
-.table th:hover {
+/* .table th:hover {
   background-color: yellowgreen;
+} */
+
+.table tr:hover {
+  background-color: yellowgreen;
+}
+
+.table tr {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
