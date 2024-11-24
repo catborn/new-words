@@ -21,11 +21,12 @@ button:hover {
   background-color: yellowgreen;
 } */
 
-.table tr:hover {
+/* .table tr:hover {
   background-color: yellowgreen;
-}
+} */
 
-.table tr {
+/* .table tr {
+  text-align: left;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-}
+} */
