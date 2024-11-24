@@ -1,40 +1,72 @@
-import React, { useState, useRef, useEffect } from "react";//импортируем хуки: управление состоянием компонента, объект-реф сохранящий состояния м/у рендерами, для фокуса
+import React, { useState, useRef, useEffect, useContext } from "react"; //импортируем хуки: управление состоянием компонента, объект-реф сохранящий состояния м/у рендерами, для фокуса
+import { observer } from "mobx-react";
+import { MobXProviderContext } from "mobx-react";
 import styles from "./Card.module.css";
-import { data } from "./data.js";
+// import { data } from "./data.js";
 
-function Main() {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);//индекс текущего слова
-  const [learnedWords, setLearnedWords] = useState(0);//количнство изученных слов
-  const [showTranslation, setShowTranslation] = useState(false);//флаг вкл/выкл перевода слова
-  const cardRef = useRef(null);//фокусировка на элементе
+// Оборачиваем компонент в observer для реактивности MobX
+const Main = observer(() => {
+  // Получаем доступ к wordsStore через MobX Provider
+  const { wordsStore } = useContext(MobXProviderContext);
 
+  // Состояние для индекса текущего слова
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  // Состояние для количества изученных слов
+  const [learnedWords, setLearnedWords] = useState(0);
+  // Флаг для отображения/скрытия перевода
+  const [showTranslation, setShowTranslation] = useState(false);
+  // Ref для фокусировки на карточке
+  const cardRef = useRef(null);
+
+  // Эффект для фокусировки на карточке при изменении слова
   useEffect(() => {
-    if (cardRef.current) {//если элемент связан с cardRef
-      cardRef.current.focus();//то устанавливаем фокус на карточку
+    if (cardRef.current) {
+      cardRef.current.focus();
     }
-  }, [currentWordIndex]);//вызывается каждый раз, когда меняется currentWordIndex
+  }, [currentWordIndex]);
 
-  const currentWord = data[currentWordIndex];//хранит текущее слова из массива data
-//обработчики событий
+  // Получаем текущее слово из store
+  const currentWord = wordsStore.words[currentWordIndex] || {};
+
+  // Обработчик для показа перевода
   const handleShowTranslation = () => {
-    if (!showTranslation) {//если перевод не показан
-      setLearnedWords((prev) => prev + 1);//увеличить счетчик изученных слов
+    if (!showTranslation) {
+      setLearnedWords((prev) => prev + 1);
     }
-    setShowTranslation(true);//показать перевод
+    setShowTranslation(true);
   };
-//кнопка Next Word
+
+  // Обработчик для перехода к следующему слову
   const nextWord = () => {
-    setCurrentWordIndex((prevIndex) => (prevIndex + 1) % data.length);//если конец,то начать цикл сначала
-    setShowTranslation(false);//скрыть текущий перевод
-  };
-//кнопка Previos Word
-  const previosWord = () => {
-    setCurrentWordIndex((previosIndex) =>
-      previosIndex === 0 ? data.length - 1 : previosIndex - 1//если индекс=0, перейти к посленему слову в списке
+    setCurrentWordIndex(
+      (prevIndex) => (prevIndex + 1) % wordsStore.words.length
     );
     setShowTranslation(false);
   };
-//рендеринг
+
+  // Обработчик для перехода к предыдущему слову
+  const previosWord = () => {
+    setCurrentWordIndex((previosIndex) =>
+      previosIndex === 0 ? wordsStore.words.length - 1 : previosIndex - 1
+    );
+    setShowTranslation(false);
+  };
+
+  // Если данные загружаются, показываем сообщение о загрузке
+  if (wordsStore.loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Если произошла ошибка, показываем сообщение об ошибке
+  if (wordsStore.error) {
+    return <div>Error: {wordsStore.error}</div>;
+  }
+
+  // Если слов нет, показываем соответствующее сообщение
+  if (wordsStore.words.length === 0) {
+    return <div>No words available</div>;
+  }
+
   return (
     <div>
       <div className={styles.counter}>Изучено слов: {learnedWords}</div>
@@ -70,5 +102,5 @@ function Main() {
       </div>
     </div>
   );
-}
+});
 export default Main;

@@ -34,7 +34,14 @@ function App() {
                 </WordsProvider>
               }
             />
-            <Route path="/main" element={<Main />} />
+            <Route
+              path="/main"
+              element={
+                <WordsProvider>
+                  <Main />
+                </WordsProvider>
+              }
+            />
           </Routes>
         </div>
       </Router>
