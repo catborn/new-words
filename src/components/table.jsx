@@ -1,8 +1,26 @@
+import React from "react";
 import TableRow from "./TableRow";
-import data from "./data";
+// import data from "./data";
 import styles from "./Table.module.css";
+import { observer } from "mobx-react";
+import { useContext } from "react";
+import { MobXProviderContext } from "mobx-react";
 
-function Table() {
+const Table = observer(() => {
+  const { wordsStore } = useContext(MobXProviderContext);
+
+  // useEffect(() => {
+  //   wordsStore.fetchWords();
+  // }, [wordsStore]);
+
+  if (wordsStore.loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (wordsStore.error) {
+    return <div>Error: {wordsStore.error}</div>;
+  }
+
   return (
     <table className={styles.table_container}>
       <thead className={styles.table}>
@@ -14,14 +32,12 @@ function Table() {
           <th>tag</th>
         </tr>
       </thead>
-      {/* (map() и ...spread) для каждой записи новый TableRow через props, key для отслеживания изменений*/}
       <tbody>
-        {data.map((data) => (
-          <TableRow key={data.id} {...data} />
+        {wordsStore.words.map((word) => (
+          <TableRow key={word.id} {...word} />
         ))}
       </tbody>
     </table>
   );
-}
-
+});
 export default Table;

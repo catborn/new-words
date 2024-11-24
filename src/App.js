@@ -6,6 +6,7 @@ import Table from "./components/table";
 
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { WordsProvider } from "./components/WordStore";
 
 function App() {
   return (
@@ -25,7 +26,14 @@ function App() {
           </nav>
 
           <Routes>
-            <Route path="/" element={<Table />} />
+            <Route
+              path="/"
+              element={
+                <WordsProvider>
+                  <Table />
+                </WordsProvider>
+              }
+            />
             <Route path="/main" element={<Main />} />
           </Routes>
         </div>

@@ -1,39 +1,63 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "./button";
+import { observer } from "mobx-react";
+import { MobXProviderContext } from "mobx-react";
 
-const TableRow = ({ id, english, transcription, russian, tags }) => {
+// Оборачиваем компонент в observer для реактивности MobX
+const TableRow = observer(({ id, english, transcription, russian, tags }) => {
+  // Получаем доступ к wordsStore через MobX Provider
+  const { wordsStore } = useContext(MobXProviderContext);
+
+  // Состояние для отслеживания режима редактирования
   const [isEditing, setIsEditing] = useState(false);
+
+  // Состояние для хранения редактируемых данных
   const [editedData, setEditedData] = useState({
     english,
     transcription,
     russian,
     tags,
   });
+
+  // Состояние для хранения ошибок валидации
   const [errors, setErrors] = useState({});
 
+  // Обработчик для включения режима редактирования
   const handleEdit = () => {
     setIsEditing(true);
-    setErrors({});
+    setErrors({}); // Сбрасываем ошибки при начале редактирования
   };
 
+  // Обработчик для отмены редактирования
   const handleCancel = () => {
     setIsEditing(false);
-    setEditedData({ english, transcription, russian, tags });
-    setErrors({});
+    setEditedData({ english, transcription, russian, tags }); // Возвращаем исходные данные
+    setErrors({}); // Сбрасываем ошибки
   };
 
+  // Обработчик для сохранения изменений
   const handleSave = () => {
-    setIsEditing(false);
+    if (!hasEmptyFields) {
+      wordsStore.updateWord(id, editedData); // Вызываем метод store для обновления слова
+      setIsEditing(false);
+    }
   };
 
+  // Обработчик для удаления слова
+  const handleDelete = () => {
+    wordsStore.deleteWord(id); // Вызываем метод store для удаления слова
+  };
+
+  // Обработчик изменения полей ввода
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Обновляем редактируемые данные
     setEditedData((prev) => ({
       ...prev,
       [name]: value,
     }));
 
-    // Проверка на пустое поле
+    // Проверяем на пустое поле и обновляем ошибки
     setErrors((prev) => ({
       ...prev,
       [name]: value.trim() === "",
@@ -45,6 +69,7 @@ const TableRow = ({ id, english, transcription, russian, tags }) => {
     (value) => !value.trim()
   );
 
+  // Функция для стилизации полей ввода в зависимости от наличия ошибок
   const inputStyle = (fieldName) => ({
     border: errors[fieldName] ? "2px solid red" : "1px solid #ccc",
   });
@@ -53,6 +78,7 @@ const TableRow = ({ id, english, transcription, russian, tags }) => {
     <tr>
       <td>{id}</td>
       {isEditing ? (
+        // Режим редактирования
         <>
           <td>
             <input
@@ -96,6 +122,7 @@ const TableRow = ({ id, english, transcription, russian, tags }) => {
           </td>
         </>
       ) : (
+        // Режим просмотра
         <>
           <td>{english}</td>
           <td>{transcription}</td>
@@ -103,11 +130,11 @@ const TableRow = ({ id, english, transcription, russian, tags }) => {
           <td>{tags}</td>
           <td>
             <Button onClick={handleEdit} text="Edit" />
-            <Button text="Delete" />
+            <Button onClick={handleDelete} text="Delete" />
           </td>
         </>
       )}
     </tr>
   );
-};
+});
 export default TableRow;
